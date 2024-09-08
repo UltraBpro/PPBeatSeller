@@ -8,11 +8,27 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
+    <div id="loading-screen">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" id="loading-logo">
+    </div>
+    
     <header>
         <button id="show-profile">☰</button>
         <div class="audio-player">
-            <audio id="background-music" controls>
-                <source src="{% static 'audio/background.mp3' %}" type="audio/mpeg">
+            <button id="prev-track" class="player-button">◀◀</button>
+            <button id="play-pause" class="player-button">
+                <span class="play-icon">▶</span>
+                <span class="pause-icon" style="display: none;">❚❚</span>
+            </button>
+            <button id="next-track" class="player-button">▶▶</button>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="time-display">
+                <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <audio id="background-music">
+                <source src="{% static 'audio/background0.mp3' %}" type="audio/mpeg">
             </audio>
         </div>
         <div class="logo">
@@ -25,10 +41,10 @@
             <button id="hide-profile">☰</button>
             <div class="profile-info">
                 <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture">
-                <h2>Your Name</h2>
-                hadhadhadhadhawdhakdwd
-                dhwakjdlhjwadlkwajdlwakjd
-                vclacla
+                <h2>FUCK FACE</h2>
+                BLABLABLABKABLAKB
+                BLAKBLAKBLAKBL
+                BLABKALBLBKBAL
                 <div class="social-links">
                     <p></p><a href="#" target="_blank">Facebook</a></p>
                     <p><a href="#" target="_blank">Instagram</a></p>
@@ -39,19 +55,25 @@
 
         <section class="album-list">
             <h1>MENU</h1>
-            {% for album in albums %}
-                <div class="album">
-                    <img src="{{ album.cover_image.url }}" alt="{{ album.title }}">
-                    <h2>{{ album.title }}</h2>
-                    <p>{{ album.description }}</p>
-                    <p>Price: ${{ album.price }}</p>
-                    <a href="#">View Details</a>
-                </div>
-            {% endfor %}
+            <ul class="album-titles">
+                {% for album in albums %}
+                    <li class="album-title">
+                        <a href="#" data-album-id="{{ album.id }}">{{ album.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </section>
     </main>
 
     <div class="overlay"></div>
+
+    <script>
+        var audioTracks = [
+            "{% static 'audio/background0.mp3' %}",
+            "{% static 'audio/background1.mp3' %}",
+            "{% static 'audio/background2.mp3' %}"
+        ];
+    </script>
 
     <script src="{% static 'js/script.js' %}"></script>
 </body>

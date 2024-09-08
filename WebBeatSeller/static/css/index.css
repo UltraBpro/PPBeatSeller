@@ -36,8 +36,46 @@ header {
 }
 
 .audio-player {
+    display: flex;
+    align-items: center;
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.player-button {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.progress-container {
     flex-grow: 1;
-    text-align: center;
+    background-color: #4a4a4a;
+    height: 5px;
+    border-radius: 5px;
+    margin: 0 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.progress-bar {
+    background-color: #4a90e2;
+    height: 100%;
+    border-radius: 5px;
+    width: 0;
+}
+
+.time-display {
+    font-size: 0.8rem;
+    color: #e0e0e0;
+    min-width: 80px;
+    text-align: right;
 }
 
 #show-profile {
@@ -56,19 +94,20 @@ main {
 }
 
 .profile-sidebar {
-    width: 250px;
+    width: 300px; /* Tăng từ 250px lên 300px */
     padding: 1rem;
     background-color: #1e1e1e;
     position: fixed;
-    left: -252px; /* Thay đổi từ -250px thành -252px để tính cả border */
+    left: -302px; /* Thay đổi từ -252px thành -302px để tính cả border */
     top: 0;
     bottom: 0;
     transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
     z-index: 1100;
     overflow-y: auto;
     border-right: 2px solid #e0e0e0;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Thêm box-shadow để tạo hiệu ứng nổi */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
     opacity: 0;
+    box-sizing: border-box;
 }
 
 .profile-sidebar.show {
@@ -76,9 +115,15 @@ main {
     opacity: 1;
 }
 
+.profile-info {
+    word-wrap: break-word; /* Thêm dòng này */
+    overflow-wrap: break-word; /* Thêm dòng này */
+}
+
 .profile-info img {
     max-width: 100%;
     border-radius: 50%;
+    height: auto; /* Thêm dòng này */
 }
 
 .album-list {
@@ -112,10 +157,15 @@ main {
     border-radius: 4px;
 }
 
+.social-links {
+    display: flex;
+    flex-direction: column; /* Thêm dòng này */
+}
+
 .social-links a {
     color: #4a90e2;
     text-decoration: none;
-    margin-right: 10px;
+    margin-bottom: 10px; /* Thay đổi từ margin-right thành margin-bottom */
 }
 
 .social-links a:hover {
@@ -152,4 +202,72 @@ main {
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0;
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+#loading-logo {
+    max-width: 200px;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+body > *:not(#loading-screen) {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+body.loaded > *:not(#loading-screen) {
+    opacity: 1;
+}
+
+body.loaded #loading-screen {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.loaded #loading-logo {
+    opacity: 0;
+}
+
+#prev-track, #next-track {
+    font-size: 0.8rem;
+}
+
+.album-titles {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+.album-title {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.album-title a {
+    display: block;
+    padding: 1rem;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.album-title a:hover {
+    background-color: #2a2a2a;
 }
