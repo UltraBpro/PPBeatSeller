@@ -1,0 +1,155 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('../fonts/PressStart2P-vaV7.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #121212;
+    color: #e0e0e0;
+    overflow-x: hidden; /* Thêm dòng này */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #1e1e1e;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 60px;
+}
+
+.logo img {
+    max-height: 40px;
+}
+
+.audio-player {
+    flex-grow: 1;
+    text-align: center;
+}
+
+#show-profile {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 1rem;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 60px; /* Để tránh bị che bởi header */
+}
+
+.profile-sidebar {
+    width: 250px;
+    padding: 1rem;
+    background-color: #1e1e1e;
+    position: fixed;
+    left: -252px; /* Thay đổi từ -250px thành -252px để tính cả border */
+    top: 0;
+    bottom: 0;
+    transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    z-index: 1100;
+    overflow-y: auto;
+    border-right: 2px solid #e0e0e0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Thêm box-shadow để tạo hiệu ứng nổi */
+    opacity: 0;
+}
+
+.profile-sidebar.show {
+    left: 0;
+    opacity: 1;
+}
+
+.profile-info img {
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+.album-list {
+    flex-grow: 1;
+    padding: 2rem;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.album-list.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.album {
+    margin-bottom: 2rem;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.album img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.social-links a {
+    color: #4a90e2;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+.card {
+    height: 100%;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: none;
+}
+
+#hide-profile {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+}

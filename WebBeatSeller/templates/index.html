@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beat Seller</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <header>
+        <button id="show-profile">☰</button>
+        <div class="audio-player">
+            <audio id="background-music" controls>
+                <source src="{% static 'audio/background.mp3' %}" type="audio/mpeg">
+            </audio>
+        </div>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+        </div>
+    </header>
+
+    <main>
+        <aside class="profile-sidebar">
+            <button id="hide-profile">☰</button>
+            <div class="profile-info">
+                <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture">
+                <h2>Your Name</h2>
+                hadhadhadhadhawdhakdwd
+                dhwakjdlhjwadlkwajdlwakjd
+                vclacla
+                <div class="social-links">
+                    <p></p><a href="#" target="_blank">Facebook</a></p>
+                    <p><a href="#" target="_blank">Instagram</a></p>
+                    <p><a href="#" target="_blank">SoundCloud</a></p>
+                </div>
+            </div>
+        </aside>
+
+        <section class="album-list">
+            <h1>MENU</h1>
+            {% for album in albums %}
+                <div class="album">
+                    <img src="{{ album.cover_image.url }}" alt="{{ album.title }}">
+                    <h2>{{ album.title }}</h2>
+                    <p>{{ album.description }}</p>
+                    <p>Price: ${{ album.price }}</p>
+                    <a href="#">View Details</a>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <div class="overlay"></div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
