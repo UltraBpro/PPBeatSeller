@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-dve_&we^-8&@lqd&(@+)a&3gpcqmloku$)msvbdycztr&!m%p9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['TuanKienMatLoz.pythonanywhere.com','127.0.0.1']
+
+# Add these lines
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
 
 
 # Application definition
@@ -111,7 +117,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
+    <video id="background-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/background.mp4' %}" type="video/mp4">
+    </video>
+    
     <div id="loading-screen">
         <img src="{% static 'images/logo.png' %}" alt="Logo" id="loading-logo">
     </div>
@@ -92,5 +96,7 @@
     </script>
 
     <script src="{% static 'js/script.js' %}"></script>
+    
+    <audio id="button-click-sound" src="{% static 'audio/click.mp3' %}"></audio>
 </body>
 </html>

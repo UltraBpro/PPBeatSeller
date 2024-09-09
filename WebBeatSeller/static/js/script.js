@@ -28,14 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
             }, 500);
-        }, 2000); // Adjust this delay as needed
+        }, 2000); // Điều chỉnh thời gian này nếu cần
     }
 
     showProfileButton.addEventListener('click', showProfile);
     hideProfileButton.addEventListener('click', hideProfile);
     overlay.addEventListener('click', hideProfile);
-
-    handleLoadingScreen();
 
     const audio = document.getElementById('background-music');
     const playPauseButton = document.getElementById('play-pause');
@@ -120,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         albumTitles.forEach(title => {
             title.addEventListener('click', function(e) {
                 e.preventDefault();
+                playButtonClickSound();
                 const albumId = this.getAttribute('data-album-id');
                 showAlbumDetails(albumId);
             });
@@ -128,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call the function to set up event listeners
     handleAlbumSelection();
-
+    handleLoadingScreen();
     // Add new variables and functions for album details
     const albumDetails = document.querySelector('.album-details');
     const albumCover = document.getElementById('album-cover');
@@ -148,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 albumVideo.src = data.cover_video || '';
+                albumVideo.loop = true;
 
                 albumInfo.innerHTML = `
                     <h2>${data.title}</h2>
@@ -194,14 +194,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     homeButton.addEventListener('click', function() {
+        playButtonClickSound();
         albumDetails.style.display = 'none';
         albumList.style.display = 'flex';
     });
 
-    infoButton.addEventListener('click', showInfo);
-    soundsButton.addEventListener('click', showSounds);
+
+    infoButton.addEventListener('click', function() {
+        playButtonClickSound();
+        showInfo();
+    });
+
+    soundsButton.addEventListener('click', function() {
+        playButtonClickSound();
+        showSounds();
+    });
 
     buyButton.addEventListener('click', function() {
+        playButtonClickSound();
         window.open('https://www.facebook.com/', '_blank');
     });
 
@@ -215,5 +225,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call the function to set up event listeners
     handleAlbumSelection();
 
+    // Add click sound to all buttons
+    const buttonClickSound = document.getElementById('button-click-sound');
+
+    function playButtonClickSound() {
+        buttonClickSound.currentTime = 0; // Reset sound to start
+        buttonClickSound.play();
+    }
+
+    document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', playButtonClickSound);
+    });
+
     // ... rest of the existing code ...
+});
+
+function playButtonClickSound() {
+    buttonClickSound.currentTime = 0; // Reset sound to start
+    buttonClickSound.play();
+}
+
+// Add click sound to all buttons
+const buttonClickSound = document.getElementById('button-click-sound');
+
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', playButtonClickSound);
 });
