@@ -121,12 +121,99 @@ document.addEventListener('DOMContentLoaded', function() {
             title.addEventListener('click', function(e) {
                 e.preventDefault();
                 const albumId = this.getAttribute('data-album-id');
-                console.log('Selected album ID:', albumId);
-                // Here you can add code to show album details or perform any other action
+                showAlbumDetails(albumId);
             });
         });
     }
 
     // Call the function to set up event listeners
     handleAlbumSelection();
+
+    // Add new variables and functions for album details
+    const albumDetails = document.querySelector('.album-details');
+    const albumCover = document.getElementById('album-cover');
+    const albumVideo = document.getElementById('album-video');
+    const albumInfo = document.querySelector('.album-info');
+    const albumDemos = document.querySelector('.album-demos');
+    const homeButton = document.getElementById('home-button');
+    const infoButton = document.getElementById('info-button');
+    const soundsButton = document.getElementById('sounds-button');
+    const buyButton = document.getElementById('buy-button');
+
+    function showAlbumDetails(albumId) {
+        albumList.style.display = 'none';
+        albumDetails.style.display = 'flex';
+
+        fetch(`/api/albums/${albumId}/`)
+            .then(response => response.json())
+            .then(data => {
+                albumVideo.src = data.cover_video || '';
+
+                albumInfo.innerHTML = `
+                    <h2>${data.title}</h2>
+                    <p>${data.description}</p>
+                    <h3>Features:</h3>
+                    <ul>
+                        ${data.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                `;
+
+                albumDemos.innerHTML = `
+                    <h3>Demos:</h3>
+                    ${data.demos.map(demo => `
+                        <div>
+                            <p>${demo.title}</p>
+                            <audio controls>
+                                <source src="${demo.audio_file}" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    `).join('')}
+                `;
+
+                showVideo();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function showVideo() {
+        albumVideo.style.display = 'block';
+        albumInfo.style.display = 'none';
+        albumDemos.style.display = 'none';
+    }
+
+    function showInfo() {
+        albumVideo.style.display = 'none';
+        albumInfo.style.display = 'block';
+        albumDemos.style.display = 'none';
+    }
+
+    function showSounds() {
+        albumVideo.style.display = 'none';
+        albumInfo.style.display = 'none';
+        albumDemos.style.display = 'block';
+    }
+
+    homeButton.addEventListener('click', function() {
+        albumDetails.style.display = 'none';
+        albumList.style.display = 'flex';
+    });
+
+    infoButton.addEventListener('click', showInfo);
+    soundsButton.addEventListener('click', showSounds);
+
+    buyButton.addEventListener('click', function() {
+        window.open('https://www.facebook.com/', '_blank');
+    });
+
+    // Thêm event listener cho video để tự động phát khi hiển thị
+    albumVideo.addEventListener('loadedmetadata', function() {
+        if (albumVideo.style.display !== 'none') {
+            albumVideo.play();
+        }
+    });
+
+    // Call the function to set up event listeners
+    handleAlbumSelection();
+
+    // ... rest of the existing code ...
 });
