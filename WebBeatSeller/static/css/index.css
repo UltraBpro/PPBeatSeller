@@ -277,7 +277,7 @@ body.loaded #loading-logo {
     color: #e0e0e0;
     text-decoration: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .album-title a:hover {
