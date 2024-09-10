@@ -94,11 +94,11 @@ main {
 }
 
 .profile-sidebar {
-    width: 300px; /* Tăng từ 250px lên 300px */
+    width: 500px; /* Tăng từ 250px lên 300px */
     padding: 1rem;
     background-color: #1e1e1e;
     position: fixed;
-    left: -300px; /* Thay đổi từ -252px thành -302px để tính cả border */
+    left: -500px; /* Thay đổi từ -252px thành -302px để tính cả border */
     top: 0;
     bottom: 0;
     transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -116,16 +116,28 @@ main {
 }
 
 .profile-info {
+    display: flex;
+    align-items: center;
     word-wrap: break-word; /* Thêm dòng này */
     overflow-wrap: break-word; /* Thêm dòng này */
 }
 
 .profile-info img {
-    max-width: 100%;
+    max-width: 30%;
     border-radius: 50%;
     height: auto; /* Thêm dòng này */
+    margin-right: 1rem;
 }
-
+.profile-text {
+    display: flex;
+    flex-direction: column;
+}
+.profile-text h2,.profile-text h3 {
+    margin:0;
+}
+.profile-text h3 {
+    font-size: 0.8rem; /* Adjust the font size as needed */
+}
 .album-list {
     flex-grow: 1;
     padding: 2rem;
