@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beat Seller</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}" >
 </head>
@@ -48,37 +49,41 @@
                 <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture">
                 <div class="profile-text">
                     <h2>KEAN</h2>
-                    <h3>-OFFICIAL WEBSITE-</h2>
+                    <h3 style="color: red;">-OFFICIAL WEBSITE-</h3>
                 </div>
             </div>
-                <h3>This is the official website of Kean something something something something something something something something something</h3>
-                <div class="social-links">
-                    <p><a href="https://www.facebook.com/" target="_blank">Facebook</a></p>
-                    <p><a href="https://www.instagram.com//" target="_blank">Instagram</a></p>
-                    <p><a href="https://soundcloud.com/" target="_blank">SoundCloud</a></p>
-                </div>
+            <h3>This is the official website of Kean something something something something something something something something something</h3>
+            <div class="social-links">
+                <button onclick="window.open('https://www.facebook.com/', '_blank')">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+                <button onclick="window.open('https://www.soundcloud.com/', '_blank')">
+                    <i class="fab fa-soundcloud"></i> SoundCloud
+                </button>
+                <button onclick="window.open('https://www.spotify.com/', '_blank')">
+                    <i class="fab fa-spotify"></i> Spotify
+                </button>
+            </div>
+            <p class="copyright">Copyright SmollPiPi — All rights reserved</p>
         </aside>
 
-        <section class="album-list">
-            <h1>MENU</h1>
-            <ul class="album-titles">
-                {% for album in albums %}
-                    <li class="album-title">
-                        <a href="#" data-album-id="{{ album.id }}">{{ album.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
-
-        <section class="album-details" style="display: none;">
-            <div class="album-frame">
-                <div class="album-content">
-                    <video src="" id="album-video" style="display: none;"></video>
-                    <div class="album-info" style="display: none;"></div>
-                    <div class="album-demos" style="display: none;"></div>
+        <section class="album-frame">
+            <div class="album-content">
+                <div class="album-list">
+                    <h1>MENU</h1>
+                    <ul class="album-titles">
+                        {% for album in albums %}
+                            <li class="album-title">
+                                <a href="#" data-album-id="{{ album.id }}">{{ album.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
+                <video src="" id="album-video" style="display: none;"></video>
+                <div class="album-info" style="display: none;"></div>
+                <div class="album-demos" style="display: none;"></div>
             </div>
-            <div class="album-buttons">
+            <div class="album-buttons" style="display: none;">
                 <button id="home-button">Home</button>
                 <button id="info-button">Info</button>
                 <button id="sounds-button">Sounds</button>

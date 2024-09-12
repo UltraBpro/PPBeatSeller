@@ -140,65 +140,140 @@ document.addEventListener('DOMContentLoaded', function() {
     const buyButton = document.getElementById('buy-button');
 
     function showAlbumDetails(albumId) {
-        albumList.style.display = 'none';
-        albumDetails.style.display = 'flex';
+        const albumList = document.querySelector('.album-list');
+        const albumButtons = document.querySelector('.album-buttons');
+        const albumContent = document.querySelector('.album-content');
+        
+        albumList.classList.add('hidden');
+        setTimeout(() => {
+            albumList.style.display = 'none';
+            albumContent.style.display = 'flex';
+            albumButtons.style.display = 'flex';
+            albumButtons.classList.remove('hidden');
+            
+            fetch(`/api/albums/${albumId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    albumVideo.src = data.cover_video || '';
+                    albumVideo.loop = true;
 
-        fetch(`/api/albums/${albumId}/`)
-            .then(response => response.json())
-            .then(data => {
-                albumVideo.src = data.cover_video || '';
-                albumVideo.loop = true;
+                    albumInfo.innerHTML = `
+                        <h2>${data.title}</h2>
+                        <p>${data.description}</p>
+                        <h3>Features:</h3>
+                        <ul>
+                            ${data.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    `;
 
-                albumInfo.innerHTML = `
-                    <h2>${data.title}</h2>
-                    <p>${data.description}</p>
-                    <h3>Features:</h3>
-                    <ul>
-                        ${data.features.map(feature => `<li>${feature}</li>`).join('')}
-                    </ul>
-                `;
+                    albumDemos.innerHTML = `
+                        <h3>Demos:</h3>
+                        ${data.demos.map(demo => `
+                            <div>
+                                <p>${demo.title}</p>
+                                <audio controls>
+                                    <source src="${demo.audio_file}" type="audio/mpeg">
+                                </audio>
+                            </div>
+                        `).join('')}
+                    `;
 
-                albumDemos.innerHTML = `
-                    <h3>Demos:</h3>
-                    ${data.demos.map(demo => `
-                        <div>
-                            <p>${demo.title}</p>
-                            <audio controls>
-                                <source src="${demo.audio_file}" type="audio/mpeg">
-                            </audio>
-                        </div>
-                    `).join('')}
-                `;
-
-                showVideo();
-            })
-            .catch(error => console.error('Error:', error));
+                    showVideo();
+                })
+                .catch(error => console.error('Error:', error));
+        }, 300);
     }
 
     function showVideo() {
-        albumVideo.style.display = 'block';
+        const albumVideo = document.getElementById('album-video');
+        const albumInfo = document.querySelector('.album-info');
+        const albumDemos = document.querySelector('.album-demos');
+
         albumInfo.style.display = 'none';
         albumDemos.style.display = 'none';
+        albumVideo.style.display = 'block';
+        albumVideo.classList.remove('hidden');
+        
+        if (albumVideo.readyState >= 2) {
+            albumVideo.play();
+        } else {
+            albumVideo.addEventListener('loadeddata', () => {
+                albumVideo.play();
+            });
+        }
+    }
+
+    function showAlbumList() {
+        const albumList = document.querySelector('.album-list');
+        const albumButtons = document.querySelector('.album-buttons');
+        const albumContent = document.querySelector('.album-content');
+        const albumVideo = document.getElementById('album-video');
+        const albumInfo = document.querySelector('.album-info');
+        const albumDemos = document.querySelector('.album-demos');
+
+        // Ẩn các phần tử khác
+        albumButtons.classList.add('hidden');
+        albumVideo.classList.add('hidden');
+        albumInfo.classList.add('hidden');
+        albumDemos.classList.add('hidden');
+
+        // Hiển thị danh sách album
+        albumList.style.display = 'block';
+        albumList.classList.remove('hidden');
+
+        // Đặt lại hiển thị của album-content
+        albumContent.style.display = 'block';
+
+        // Ẩn các phần tử khác sau khi transition kết thúc
+        setTimeout(() => {
+            albumButtons.style.display = 'none';
+            albumVideo.style.display = 'none';
+            albumInfo.style.display = 'none';
+            albumDemos.style.display = 'none';
+
+            // Dừng video nếu đang phát
+            if (!albumVideo.paused) {
+                albumVideo.pause();
+            }
+        }, 300);
     }
 
     function showInfo() {
-        albumVideo.style.display = 'none';
-        albumInfo.style.display = 'block';
-        albumDemos.style.display = 'none';
+        const albumVideo = document.getElementById('album-video');
+        const albumInfo = document.querySelector('.album-info');
+        const albumDemos = document.querySelector('.album-demos');
+
+        albumVideo.classList.add('hidden');
+        albumDemos.classList.add('hidden');
+
+        setTimeout(() => {
+            albumInfo.style.display = 'block';
+            albumInfo.classList.remove('hidden');
+            albumVideo.style.display = 'none';
+            albumDemos.style.display = 'none';
+        }, 300);
     }
 
     function showSounds() {
-        albumVideo.style.display = 'none';
-        albumInfo.style.display = 'none';
-        albumDemos.style.display = 'block';
+        const albumVideo = document.getElementById('album-video');
+        const albumInfo = document.querySelector('.album-info');
+        const albumDemos = document.querySelector('.album-demos');
+
+        albumVideo.classList.add('hidden');
+        albumInfo.classList.add('hidden');
+
+        setTimeout(() => {
+            albumDemos.style.display = 'block';
+            albumDemos.classList.remove('hidden');
+            albumVideo.style.display = 'none';
+            albumInfo.style.display = 'none';
+        }, 300);
     }
 
     homeButton.addEventListener('click', function() {
         playButtonClickSound();
-        albumDetails.style.display = 'none';
-        albumList.style.display = 'flex';
+        showAlbumList();
     });
-
 
     infoButton.addEventListener('click', function() {
         playButtonClickSound();
